@@ -8,6 +8,8 @@ This is a piece of software that will make your keyboard react to flags in ACC.
 
 Download: https://mega.nz/file/qJAECRpJ#mGQb-661IjOi3sWbf9eUk6HhdDU4eHd5led_vkEzJxQ
 
+When downloading Windows might tell you this file is unsafe, but in reality it is safe.
+
 Put this somewhere safe, doesn't matter where.
 
 Launch the .exe you downloaded together with the game. 
