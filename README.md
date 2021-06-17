@@ -6,7 +6,7 @@ This is a piece of software that will make your keyboard react to flags in ACC.
 
 How to use:
 
-Download: https://mega.nz/file/Hc4QlSYR#qZhePAJKbjCafVEhg8GKqcb8jxIR6auJ0uJ3JukwJy8
+Download: https://mega.nz/file/qJAECRpJ#mGQb-661IjOi3sWbf9eUk6HhdDU4eHd5led_vkEzJxQ
 
 Put this somewhere safe, doesn't matter where.
 
