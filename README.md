@@ -6,7 +6,7 @@ This is a piece of software that will make your keyboard react to flags in ACC.
 
 # How to use:
 
-Download: https://mega.nz/file/qJAECRpJ#mGQb-661IjOi3sWbf9eUk6HhdDU4eHd5led_vkEzJxQ
+Download: https://www.racedepartment.com/downloads/acc-chroma.43300/
 
 When downloading your browser might tell you this file is unsafe, but in reality it is safe.
 
