@@ -190,6 +190,13 @@ BOOL My_Chroma_Implementation::example_mousemat() {
 	return Result_Mousemat;
 }*/
 
+void exitHandler(int sig)
+{
+	signal(sig, SIG_IGN);
+	dismiss(m_graphics);
+	exit(0);
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 
@@ -200,6 +207,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//initStatic();
 
 	cout << "Starting...\n";
+	signal(SIGINT, exitHandler);
 	My_Chroma_Implementation impl_test; //Initialize ChromaSDK
 
 	auto test_for_init = impl_test.Initialize(); // Initialize all Chroma devices
@@ -309,7 +317,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "Unable to initialize ACC Chroma.\n";
 		cin.ignore();
 	}
-
+	
 	dismiss(m_graphics);
 	//dismiss(m_physics);
 	//dismiss(m_static);
