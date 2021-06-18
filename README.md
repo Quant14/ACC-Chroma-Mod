@@ -4,6 +4,8 @@ Currently Razer only!
 
 This is a piece of software that will make your keyboard react to flags in ACC.
 
+Requires Razer Synapse and might require Razer Chroma Connect module.
+
 # How to use:
 
 Download: https://www.racedepartment.com/downloads/acc-chroma.43300/
