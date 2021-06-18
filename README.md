@@ -8,8 +8,6 @@ This is a piece of software that will make your keyboard react to flags in ACC.
 
 Download: https://www.racedepartment.com/downloads/acc-chroma.43300/
 
-When downloading your browser might tell you this file is unsafe, but in reality it is safe.
-
 Put this somewhere safe, doesn't matter where.
 
 Launch the .exe you downloaded together with the game. 
