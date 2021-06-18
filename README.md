@@ -27,3 +27,9 @@ Blue flag, Yellow flag, Black flag, White flag, Green flag, Orange flag
 # To-do:
 
 Add checkered flag, add penalty flag, improve orange flag.
+
+# Changelog:
+
+Version 0.8.1: Minor performance optimization.
+
+Version 0.8: Base version.
