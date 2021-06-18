@@ -23,3 +23,7 @@ In order to close it you need to press ctrl+C.
 Respectively reacts to:
 
 Blue flag, Yellow flag, Black flag, White flag, Green flag, Orange flag
+
+# To-do:
+
+Add checkered flag, add penalty flag, improve orange flag.
