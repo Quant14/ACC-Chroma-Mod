@@ -30,6 +30,8 @@ Add checkered flag, add penalty flag, improve orange flag.
 
 # Changelog:
 
+Version 0.9: Memory optimization.
+
 Version 0.8.1: Minor performance optimization.
 
 Version 0.8: Base version.
