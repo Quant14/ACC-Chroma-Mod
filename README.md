@@ -35,3 +35,9 @@ Version 0.9: Memory optimization.
 Version 0.8.1: Minor performance optimization.
 
 Version 0.8: Base version.
+
+# Contact:
+
+Discord: Quant#9257
+
+You can contact me about adding functionality or in case you have any issues with it. Or comment on the RaceDepartment page.
