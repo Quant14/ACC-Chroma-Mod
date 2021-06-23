@@ -106,11 +106,35 @@ void My_Chroma_Implementation::ResetEffects(size_t DeviceType)
 int My_Chroma_Implementation::keyboard_effect(int flag)
 {
 	ChromaSDK::Keyboard::CUSTOM_EFFECT_TYPE Example_keyboard_effect = {}; //Initialize
-	AC_FLAG_TYPE flag_colors[] = { BLACK, BLUE, YELLOW, BLACK, WHITE, BLACK, BLACK, GREEN, ORANGE };
+	AC_FLAG_TYPE flag_colors[] = { BLACK, BLUE, YELLOW, BLACK, WHITE, WHITE, WHITE, GREEN, ORANGE };
 	
-	for (size_t row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-		for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
-			Example_keyboard_effect.Color[row][col] = flag_colors[flag];
+	if (flag == 5)
+	{
+		for (size_t row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
+				if ((row + col) % 3 == 0)
+					Example_keyboard_effect.Color[row][col] = flag_colors[flag];
+	}
+	else if (flag == 6)
+	{
+		for (size_t row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
+				if (col > (ChromaSDK::Keyboard::MAX_ROW - row) * 5 - 5)
+					Example_keyboard_effect.Color[row][col] = flag_colors[flag];
+	}
+	else if (flag == 8)
+	{
+		for (size_t row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
+				if ((col - ChromaSDK::Keyboard::MAX_COLUMN / 2) * (col - ChromaSDK::Keyboard::MAX_COLUMN / 2) + (row - ChromaSDK::Keyboard::MAX_ROW / 2) * (row - ChromaSDK::Keyboard::MAX_ROW / 2) <= 16)
+					Example_keyboard_effect.Color[row][col] = flag_colors[flag];
+	}
+	else
+	{
+		for (size_t row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
+				Example_keyboard_effect.Color[row][col] = flag_colors[flag];
+	}
 
 	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &Example_keyboard_effect, nullptr);
 	return Result_Keyboard;
@@ -309,6 +333,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				printData("suspensionMaxTravel", pf->suspensionMaxTravel);
 				printData("tyreRadius", pf->tyreRadius);
 			}*/
+			//auto Keyboard = impl_test.keyboard_effect(5);
 			sleep_for(std::chrono::milliseconds(200));
 		}
 	}
@@ -317,10 +342,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "Unable to initialize ACC Chroma.\n";
 		cin.ignore();
 	}
-	
-	dismiss(m_graphics);
-	//dismiss(m_physics);
-	//dismiss(m_static);
 
 	return 0;
 }
