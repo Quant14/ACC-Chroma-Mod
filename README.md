@@ -16,19 +16,23 @@ Launch the .exe you downloaded together with the game.
 
 Enjoy!
 
-In order to close it you need to press ctrl+C.
+In order to close it you should press ctrl+C.
 
 # Current functionality:
 
 Respectively reacts to:
 
-Blue flag, Yellow flag, Black flag, White flag, Green flag, Orange flag
+Blue flag, Yellow flag, Black flag, White flag, Green flag, Orange flag, Checkered flag, Penalty flag
 
 # To-do:
 
-Add checkered flag, add penalty flag, improve orange flag.
+Add functionality for Logitech or SteelSeries.
+
+Add pit limiter light.
 
 # Changelog:
+
+Version 1.0: Added checkered flag, added penalty flag, improved orange flag.
 
 Version 0.9: Memory optimization.
 
