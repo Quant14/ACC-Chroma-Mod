@@ -32,7 +32,7 @@ Add pit limiter light.
 
 # Changelog:
 
-Version 1.1.0: MAJOR ERROR FIX
+Version 1.1.0: MAJOR ERROR FIX (No changes in code)
 
 Version 1.0: Added checkered flag, added penalty flag, improved orange flag.
 
