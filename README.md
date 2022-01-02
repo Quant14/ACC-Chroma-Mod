@@ -36,6 +36,8 @@ Add option to switch mode for different keyboard sizes.
 
 # Changelog:
 
+Version 1.2.1: Minor bug fix
+
 Version 1.2: MAJOR UPDATE: Should completely fix any issues with the app working on different computers. Adds per-sector yellow flag. Adds pit limiter effect.
 
 Version 1.1.0: MAJOR ERROR FIX (No changes in code)
