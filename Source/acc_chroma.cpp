@@ -196,7 +196,7 @@ int ACC_Chroma::yellow2_effect(int yellow2, int pit_limiter)
 	else
 		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
 			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 3; col < ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col++)
-				yellow2_effect.Color[row][col] = YELLOW;
+				yellow2_effect.Color[row][col] = BLACK;
 
 	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow2_effect, nullptr);
 	return Result_Keyboard;
@@ -216,7 +216,7 @@ int ACC_Chroma::yellow3_effect(int yellow3, int pit_limiter)
 	else
 		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
 			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
-				yellow3_effect.Color[row][col] = YELLOW;
+				yellow3_effect.Color[row][col] = BLACK;
 
 	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow3_effect, nullptr);
 	return Result_Keyboard;
