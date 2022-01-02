@@ -14,10 +14,10 @@ struct SMElement
 };
 
 extern SMElement m_graphics;
-//extern SMElement m_physics;
+extern SMElement m_physics;
 //extern SMElement m_static;
 
-//void initPhysics();
+void initPhysics();
 void initGraphics();
 //void initStatic();
 void dismiss(SMElement element);
@@ -237,6 +237,25 @@ struct SPageFileGraphic
     int DriverStintTotalTimeLeft = 0;
     int DriverStintTimeLeft = 0;
     int rainTyres = 0;
+    int sessionIndex = 0;
+    float usedFuel = 0;
+    wchar_t deltaLapTime[15];
+    int iDeltaLapTime = 0;
+    wchar_t estimatedLapTime[15];
+    int iEstimatedLapTime = 0;
+    int isDeltaPositive = 0;
+    int iSplit = 0;
+    int isValidLap = 0;
+    float fuelEstimatedLaps = 0.0f;
+    wchar_t trackStatus[33];
+    int missingMandatoryPits = 0;
+    float Clock = 0.0f;
+    int directionLightsLeft = 0;
+    int directionLightsRight = 0;
+    int GlobalYellow = 0;
+    int GlobalYellow1 = 0;
+    int GlobalYellow2 = 0;
+    int GlobalYellow3 = 0;
 };
 
 
