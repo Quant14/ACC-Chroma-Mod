@@ -9,7 +9,7 @@ inline unsigned arraysize(const T(&v)[S])
 	return S;
 }
 
-/*void initPhysics()
+void initPhysics()
 {
 	TCHAR szName[] = TEXT("Local\\acpmf_physics");
 	m_physics.hMapFile = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SPageFilePhysics), szName);
@@ -22,7 +22,7 @@ inline unsigned arraysize(const T(&v)[S])
 	{
 		MessageBoxA(GetActiveWindow(), "MapViewOfFile failed", "ACCS", MB_OK);
 	}
-}*/
+}
 
 void initGraphics()
 {
@@ -38,21 +38,6 @@ void initGraphics()
 		MessageBoxA(GetActiveWindow(), "MapViewOfFile failed", "ACCS", MB_OK);
 	}
 }
-
-/*void initStatic()
-{
-	TCHAR szName[] = TEXT("Local\\acpmf_static");
-	m_static.hMapFile = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SPageFileStatic), szName);
-	if (!m_static.hMapFile)
-	{
-		MessageBoxA(GetActiveWindow(), "CreateFileMapping failed", "ACCS", MB_OK);
-	}
-	m_static.mapFileBuffer = (unsigned char*)MapViewOfFile(m_static.hMapFile, FILE_MAP_READ, 0, 0, sizeof(SPageFileStatic));
-	if (!m_static.mapFileBuffer)
-	{
-		MessageBoxA(GetActiveWindow(), "MapViewOfFile failed", "ACCS", MB_OK);
-	}
-}*/
 
 void dismiss(SMElement element)
 {
