@@ -17,6 +17,7 @@ const COLORREF WHITE = RGB(255, 255, 255);
 const COLORREF RED = RGB(255, 0, 0);
 const COLORREF GREEN = RGB(0, 255, 0);
 const COLORREF BLUE = RGB(0, 0, 255);
+const COLORREF PIT_BLUE = RGB(0, 0, 220);
 const COLORREF YELLOW = RGB(255, 255, 0);
 const COLORREF PURPLE = RGB(128, 0, 128);
 const COLORREF CYAN = RGB(00, 255, 255);
@@ -33,17 +34,21 @@ const COLORREF GREY = RGB(125, 125, 125);
 #define KEYPAD_DEVICES      5
 
 //Class of your Chroma Implementation
-class My_Chroma_Implementation
+class ACC_Chroma
 {
 public:
-	My_Chroma_Implementation();
-	~My_Chroma_Implementation();
+	ACC_Chroma();
+	~ACC_Chroma();
 	BOOL Initialize();
 
 
 	void ResetEffects(size_t DeviceType);
 	//Define your methods here
-	int keyboard_effect(int flag);
+	int flag_keyboard_effect(int flag, int pit_limiter);
+	int pit_limiter_effect(int pit_limiter, int is_pit_light_on);
+	int yellow1_effect(int yellow1, int pit_limiter);
+	int yellow2_effect(int yellow2, int pit_limiter);
+	int yellow3_effect(int yellow3, int pit_limiter);
 
 	BOOL IsDeviceConnected(RZDEVICEID DeviceId);
 
