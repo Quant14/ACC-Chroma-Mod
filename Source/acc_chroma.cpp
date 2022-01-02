@@ -23,7 +23,6 @@ typedef RZRESULT(*QUERYDEVICE)(RZDEVICEID DeviceId, ChromaSDK::DEVICE_INFO_TYPE&
 
 SMElement m_graphics;
 SMElement m_physics;
-//SMElement m_static;
 
 INIT Init = nullptr;
 UNINIT UnInit = nullptr;
@@ -170,9 +169,14 @@ int ACC_Chroma::yellow1_effect(int yellow1, int pit_limiter)
 	if (pit_limiter)
 		start_row = 2;
 
-	for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-		for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN / 3; col++)
-			yellow1_effect.Color[row][col] = YELLOW;
+	if (yellow1)
+		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN / 3; col++)
+				yellow1_effect.Color[row][col] = YELLOW;
+	else
+		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN / 3; col++)
+				yellow1_effect.Color[row][col] = BLACK;
 
 	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow1_effect, nullptr);
 	return Result_Keyboard;
@@ -185,9 +189,14 @@ int ACC_Chroma::yellow2_effect(int yellow2, int pit_limiter)
 	if (pit_limiter)
 		start_row = 2;
 
-	for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-		for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 3; col < ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col++)
-			yellow2_effect.Color[row][col] = YELLOW;
+	if (yellow2)
+		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 3; col < ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col++)
+				yellow2_effect.Color[row][col] = YELLOW;
+	else
+		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 3; col < ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col++)
+				yellow2_effect.Color[row][col] = YELLOW;
 
 	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow2_effect, nullptr);
 	return Result_Keyboard;
@@ -200,9 +209,14 @@ int ACC_Chroma::yellow3_effect(int yellow3, int pit_limiter)
 	if (pit_limiter)
 		start_row = 2;
 
-	for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-		for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
-			yellow3_effect.Color[row][col] = YELLOW;
+	if (yellow3)
+		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
+				yellow3_effect.Color[row][col] = YELLOW;
+	else
+		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
+			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
+				yellow3_effect.Color[row][col] = YELLOW;
 
 	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow3_effect, nullptr);
 	return Result_Keyboard;
@@ -220,7 +234,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	initPhysics();
 	initGraphics();
-	//initStatic();
 
 	cout << "Starting...\n";
 	signal(SIGINT, exitHandler);
@@ -252,28 +265,19 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			if (graphic_data->GlobalYellow1 != old_yellow1 && graphic_data->flag != 2)
 			{
-				if (graphic_data->GlobalYellow1)
-					auto Keyboard = impl_test.yellow1_effect(graphic_data->GlobalYellow1, physics_data->pitLimiterOn);
-				else
-					auto Keyboard = impl_test.flag_keyboard_effect(0, physics_data->pitLimiterOn);
+				auto Keyboard = impl_test.yellow1_effect(graphic_data->GlobalYellow1, physics_data->pitLimiterOn);
 				old_yellow1 = graphic_data->GlobalYellow1;
 			}
 
 			if (graphic_data->GlobalYellow2 != old_yellow2 && graphic_data->flag != 2)
 			{
-				if (graphic_data->GlobalYellow2)
-					auto Keyboard = impl_test.yellow2_effect(graphic_data->GlobalYellow2, physics_data->pitLimiterOn);
-				else
-					auto Keyboard = impl_test.flag_keyboard_effect(0, physics_data->pitLimiterOn);
+				auto Keyboard = impl_test.yellow2_effect(graphic_data->GlobalYellow2, physics_data->pitLimiterOn);
 				old_yellow2 = graphic_data->GlobalYellow2;
 			}
 
 			if (graphic_data->GlobalYellow3 != old_yellow3 && graphic_data->flag != 2)
 			{
-				if (graphic_data->GlobalYellow3)
-					auto Keyboard = impl_test.yellow3_effect(graphic_data->GlobalYellow3, physics_data->pitLimiterOn);
-				else
-					auto Keyboard = impl_test.flag_keyboard_effect(0, physics_data->pitLimiterOn);
+				auto Keyboard = impl_test.yellow3_effect(graphic_data->GlobalYellow3, physics_data->pitLimiterOn);
 				old_yellow3 = graphic_data->GlobalYellow3;
 			}
 
