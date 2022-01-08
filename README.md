@@ -28,7 +28,7 @@ The app also reacts to the pit limiter.
 
 # To-do:
 
-Add functionality for Logitech or SteelSeries.
+Add functionality for Corsair or completely transfer to OpenRGB.
 
 Add different pit limiter styles.
 
