@@ -15,6 +15,8 @@ typedef RZRESULT(*INIT)(void);
 typedef RZRESULT(*UNINIT)(void);
 typedef RZRESULT(*CREATEEFFECT)(RZDEVICEID DeviceId, ChromaSDK::EFFECT_TYPE Effect, PRZPARAM pParam, RZEFFECTID* pEffectId);
 typedef RZRESULT(*CREATEKEYBOARDEFFECT)(ChromaSDK::Keyboard::EFFECT_TYPE Effect, PRZPARAM pParam, RZEFFECTID* pEffectId);
+typedef RZRESULT(*CREATEMOUSEEFFECT)(ChromaSDK::Mouse::EFFECT_TYPE Effect, PRZPARAM pParam, RZEFFECTID* pEffectId);
+typedef RZRESULT(*CREATEMOUSEPADEFFECT)(ChromaSDK::Mousepad::EFFECT_TYPE Effect, PRZPARAM pParam, RZEFFECTID* pEffectId);
 typedef RZRESULT(*SETEFFECT)(RZEFFECTID EffectId);
 typedef RZRESULT(*DELETEEFFECT)(RZEFFECTID EffectId);
 typedef RZRESULT(*REGISTEREVENTNOTIFICATION)(HWND hWnd);
@@ -28,6 +30,8 @@ INIT Init = nullptr;
 UNINIT UnInit = nullptr;
 CREATEEFFECT CreateEffect = nullptr;
 CREATEKEYBOARDEFFECT CreateKeyboardEffect = nullptr;
+CREATEMOUSEEFFECT CreateMouseEffect = nullptr;
+CREATEMOUSEPADEFFECT CreateMousepadEffect = nullptr;
 SETEFFECT SetEffect = nullptr;
 DELETEEFFECT DeleteEffect = nullptr;
 QUERYDEVICE QueryDevice = nullptr;
@@ -71,12 +75,14 @@ BOOL ACC_Chroma::Initialize()
 			if (Result == RZRESULT_SUCCESS)
 			{
 				CreateEffect = reinterpret_cast<CREATEEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateEffect"));
+				CreateMousepadEffect = reinterpret_cast<CREATEMOUSEPADEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateMousepadEffect"));
+				CreateMouseEffect = reinterpret_cast<CREATEMOUSEEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateMouseEffect"));
 				CreateKeyboardEffect = reinterpret_cast<CREATEKEYBOARDEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateKeyboardEffect"));
 				SetEffect = reinterpret_cast<SETEFFECT>(GetProcAddress(m_ChromaSDKModule, "SetEffect"));
 				DeleteEffect = reinterpret_cast<DELETEEFFECT>(GetProcAddress(m_ChromaSDKModule, "DeleteEffect"));
 				QueryDevice = reinterpret_cast<QUERYDEVICE>(GetProcAddress(m_ChromaSDKModule, "QueryDevice"));
 
-				if (CreateEffect && CreateKeyboardEffect && SetEffect && DeleteEffect && QueryDevice)
+				if (CreateEffect && CreateMousepadEffect && CreateMouseEffect && CreateKeyboardEffect && SetEffect && DeleteEffect && QueryDevice)
 					return TRUE;
 				else
 					return FALSE;
@@ -102,6 +108,31 @@ void ACC_Chroma::ResetEffects(size_t DeviceType)
 	}
 }
 
+RZRESULT ACC_Chroma::flag_mousepad_effect(int flag) {
+
+	ChromaSDK::Mousepad::CUSTOM_EFFECT_TYPE flag_mousepad_effect = {}; // Initialize
+	AC_FLAG_TYPE flag_colors[] = { BLACK, BLUE, YELLOW, BLACK, WHITE, WHITE, WHITE, GREEN, ORANGE };
+	for (int i = 0; i < ChromaSDK::Mousepad::MAX_LEDS; i++)
+		flag_mousepad_effect.Color[i] = flag_colors[flag];
+
+	RZRESULT Result_Mousepad = CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_CUSTOM, &flag_mousepad_effect, nullptr);
+	return Result_Mousepad;
+}
+
+int ACC_Chroma::flag_mouse_effect(int flag) {
+
+	ChromaSDK::Mouse::CUSTOM_EFFECT_TYPE2 flag_effect = {}; // Initialize
+	AC_FLAG_TYPE flag_colors[] = { BLACK, BLUE, YELLOW, BLACK, WHITE, WHITE, WHITE, GREEN, ORANGE };
+
+	//cout << "mouse function\n";
+	for (size_t row = 0; row < ChromaSDK::Mouse::MAX_ROW; row++)
+		for (size_t col = 0; col < ChromaSDK::Mouse::MAX_COLUMN; col++)
+			flag_effect.Color[row][col] = flag_colors[flag];
+
+	RZRESULT Result_Mouse = CreateMouseEffect(ChromaSDK::Mouse::CHROMA_CUSTOM, &flag_effect, nullptr);
+	return Result_Mouse;
+}
+
 int ACC_Chroma::flag_keyboard_effect(int flag, int pit_limiter)
 {
 	ChromaSDK::Keyboard::CUSTOM_EFFECT_TYPE flag_effect = {}; //Initialize
@@ -117,19 +148,13 @@ int ACC_Chroma::flag_keyboard_effect(int flag, int pit_limiter)
 				if ((row + col) % 3 == 0)
 					flag_effect.Color[row][col] = flag_colors[flag];
 	}
-	else if (flag == 6)
-	{
-		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
-				if (col > (ChromaSDK::Keyboard::MAX_ROW - row) * 5 - 5)
-					flag_effect.Color[row][col] = flag_colors[flag];
-	}
 	else if (flag == 8)
 	{
 		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
 			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
 				if ((col - ChromaSDK::Keyboard::MAX_COLUMN / 2) * (col - ChromaSDK::Keyboard::MAX_COLUMN / 2) + (row - ChromaSDK::Keyboard::MAX_ROW / 2) * (row - ChromaSDK::Keyboard::MAX_ROW / 2) <= 16)
 					flag_effect.Color[row][col] = flag_colors[flag];
+		//cout << "black and orange flag\n";
 	}
 	else
 	{
@@ -162,66 +187,6 @@ int ACC_Chroma::pit_limiter_effect(int pit_limiter, int is_pit_light_on)
 	return Result_Keyboard;
 }
 
-int ACC_Chroma::yellow1_effect(int yellow1, int pit_limiter)
-{
-	ChromaSDK::Keyboard::CUSTOM_EFFECT_TYPE yellow1_effect = {};
-	int start_row = 0;
-	if (pit_limiter)
-		start_row = 2;
-
-	if (yellow1)
-		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN / 3; col++)
-				yellow1_effect.Color[row][col] = YELLOW;
-	else
-		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-			for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN / 3; col++)
-				yellow1_effect.Color[row][col] = BLACK;
-
-	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow1_effect, nullptr);
-	return Result_Keyboard;
-}
-
-int ACC_Chroma::yellow2_effect(int yellow2, int pit_limiter)
-{
-	ChromaSDK::Keyboard::CUSTOM_EFFECT_TYPE yellow2_effect = {};
-	int start_row = 0;
-	if (pit_limiter)
-		start_row = 2;
-
-	if (yellow2)
-		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 3; col < ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col++)
-				yellow2_effect.Color[row][col] = YELLOW;
-	else
-		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 3; col < ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col++)
-				yellow2_effect.Color[row][col] = BLACK;
-
-	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow2_effect, nullptr);
-	return Result_Keyboard;
-}
-
-int ACC_Chroma::yellow3_effect(int yellow3, int pit_limiter)
-{
-	ChromaSDK::Keyboard::CUSTOM_EFFECT_TYPE yellow3_effect = {};
-	int start_row = 0;
-	if (pit_limiter)
-		start_row = 2;
-
-	if (yellow3)
-		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
-				yellow3_effect.Color[row][col] = YELLOW;
-	else
-		for (size_t row = start_row; row < ChromaSDK::Keyboard::MAX_ROW; row++)
-			for (size_t col = ChromaSDK::Keyboard::MAX_COLUMN / 1.5; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
-				yellow3_effect.Color[row][col] = BLACK;
-
-	RZRESULT Result_Keyboard = CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &yellow3_effect, nullptr);
-	return Result_Keyboard;
-}
-
 void exitHandler(int sig)
 {
 	signal(sig, SIG_IGN);
@@ -247,11 +212,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		SPageFileGraphic* graphic_data = (SPageFileGraphic*)m_graphics.mapFileBuffer;
 		int old_flag = 0;
 		SPageFilePhysics* physics_data = (SPageFilePhysics*)m_physics.mapFileBuffer;
-		int old_yellow1 = 0;
-		int old_yellow2 = 0;
-		int old_yellow3 = 0;
 		int old_pit_limiter = 0;
 		int is_pit_light_on = 0;
+		//RZRESULT Mousepad = impl_test.flag_mousepad_effect(7);
 		while (true) 
 		{
 			graphic_data = (SPageFileGraphic*)m_graphics.mapFileBuffer;
@@ -260,25 +223,13 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (graphic_data->flag != old_flag)
 			{
 				auto Keyboard = impl_test.flag_keyboard_effect(graphic_data->flag, physics_data->pitLimiterOn);
+				if (graphic_data->flag != 5 && graphic_data->flag != 8)
+				{
+					//cout << "mouse and pad\n";
+					auto Mouse = impl_test.flag_mouse_effect(graphic_data->flag);
+					RZRESULT Mousepad = impl_test.flag_mousepad_effect(graphic_data->flag);
+				}
 				old_flag = graphic_data->flag;
-			}
-
-			if (graphic_data->GlobalYellow1 != old_yellow1 && graphic_data->flag != 2)
-			{
-				auto Keyboard = impl_test.yellow1_effect(graphic_data->GlobalYellow1, physics_data->pitLimiterOn);
-				old_yellow1 = graphic_data->GlobalYellow1;
-			}
-
-			if (graphic_data->GlobalYellow2 != old_yellow2 && graphic_data->flag != 2)
-			{
-				auto Keyboard = impl_test.yellow2_effect(graphic_data->GlobalYellow2, physics_data->pitLimiterOn);
-				old_yellow2 = graphic_data->GlobalYellow2;
-			}
-
-			if (graphic_data->GlobalYellow3 != old_yellow3 && graphic_data->flag != 2)
-			{
-				auto Keyboard = impl_test.yellow3_effect(graphic_data->GlobalYellow3, physics_data->pitLimiterOn);
-				old_yellow3 = graphic_data->GlobalYellow3;
 			}
 
 			if (physics_data->pitLimiterOn || old_pit_limiter)
