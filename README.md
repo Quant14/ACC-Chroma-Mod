@@ -1,4 +1,4 @@
-# ACC-Chroma-App
+# ACC Chroma App
 
 Currently Razer only!
 
