@@ -50,14 +50,6 @@ Version 1.1.0: MAJOR ERROR FIX (No changes in code)
 
 Version 1.0: Added checkered flag, added penalty flag, improved orange flag.
 
-# Contact:
-
-Discord: Quant#9257
-
-You can contact me through Discord or just RaceDepartment about adding functionality (just ideas or if you want to add code) or in case you have any issues with it.
-
-Please contact me on RaceDepartment before you send me a Discord request so I can know you aren't a spammer/bot and can accept your request.
-
 ### Changelog of older versions:
 
 Version 0.9: Memory optimization.
@@ -65,3 +57,11 @@ Version 0.9: Memory optimization.
 Version 0.8.1: Minor performance optimization.
 
 Version 0.8: Base version.
+
+# Contact:
+
+Discord: Quant#9257
+
+You can contact me through Discord or just RaceDepartment about adding functionality (just ideas or if you want to add code) or in case you have any issues with it.
+
+Please contact me on RaceDepartment before you send me a Discord request so I can know you aren't a spammer/bot and can accept your request.
