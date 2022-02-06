@@ -58,7 +58,7 @@ You can contact me through Discord or just RaceDepartment about adding functiona
 
 Please contact me on RaceDepartment before you send me a Discord request so I can know you aren't a spammer/bot and can accept your request.
 
-# Changelog of older versions:
+### Changelog of older versions:
 
 Version 0.9: Memory optimization.
 
