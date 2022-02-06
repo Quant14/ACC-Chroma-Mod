@@ -6,7 +6,7 @@ This is a piece of software that will make your keyboard react to flags in ACC.
 
 Requires Razer Synapse and Razer Chroma Connect module.
 
-# How to use:
+## How to use:
 
 Download: https://www.racedepartment.com/downloads/acc-chroma.43300/
 
@@ -18,7 +18,7 @@ Enjoy!
 
 In order to close it, it is recommended to use ctrl+C instead of the X button.
 
-# Current functionality:
+## Current functionality:
 
 Respectively reacts to:
 
@@ -26,17 +26,17 @@ Blue flag, global yellow flag, white flag, green flag, orange flag, checkered fl
 
 The app also reacts to the pit limiter.
 
-# What I am doing currently:
+## What I am doing currently:
 
 Currently I am transfering everything to the OpenRGB platform so that the app works for all main manufacturers.
 
-# What's on my list with things to do:
+## What's on my list with things to do:
 
 Add different pit limiter styles.
 
 Add option to switch mode for different keyboard sizes. (If the issue I have in mind isn't resolved by OpenRGB) 
 
-# Changelog:
+## Changelog:
 
 Version 1.3: Removed single-sector yellow flag as it is too distracting. Added support for Razer mice, mouse docks and mousepads. (The last two are not guaranteed to work, but I will not spend much time fixing them as I want to switch to the OpenRGB platform)
 
@@ -58,7 +58,7 @@ Version 0.8.1: Minor performance optimization.
 
 Version 0.8: Base version.
 
-# Contact:
+## Contact:
 
 Discord: Quant#9257
 
