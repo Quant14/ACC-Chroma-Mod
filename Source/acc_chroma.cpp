@@ -93,21 +93,6 @@ BOOL ACC_Chroma::Initialize()
 	return TRUE;
 }
 
-void ACC_Chroma::ResetEffects(size_t DeviceType)
-{
-	switch (DeviceType)
-	{
-	case 0:
-		if (CreateKeyboardEffect)
-			CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_NONE, nullptr, nullptr);
-		break;
-	case 1:
-		if (CreateKeyboardEffect)
-			CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_NONE, nullptr, nullptr);
-		break;
-	}
-}
-
 int ACC_Chroma::flag_mousepad_effect(int flag) {
 
 	ChromaSDK::Mousepad::CUSTOM_EFFECT_TYPE flag_mousepad_effect = {}; // Initialize
